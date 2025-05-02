@@ -1,11 +1,13 @@
 from agno.storage.sqlite import SqliteStorage
 
-from agno_ai_multi_chat_app import registry
-
+from agno_ai_multi_chat_app.src import registry
+import time
 
 class ConversationManager:
     def __init__(self, model_list, db_file, table_name, session_id):
         self.models = []
+        if not session_id:
+            session_id = str(time.time())
 
         storage=SqliteStorage(table_name=table_name, db_file=db_file)
 
@@ -35,4 +37,4 @@ class ConversationManager:
         if user_input == "":
             user_input = None
 
-        self.models[index].generate(user_input)
+        return self.models[index].generate(user_input)
