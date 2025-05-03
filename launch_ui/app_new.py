@@ -169,6 +169,7 @@ def generate_and_render_all_responses(chat_response=None):
             generator = generate_response(chat_response, i)
             st.write(f"**Model {i+1}'s response:**")
             response = st.write_stream(generator)
+        st.session_state.chat_cli.conversation_manager.add_message("assistant", response)
         st.session_state.messages.append({"role": "assistant", "content": response, "assistant_idx": i})
 
 def create_main_window():
@@ -212,6 +213,7 @@ def create_main_window():
 
         if chat_response:
             st.session_state.messages.append({"role": "user", "content": chat_response})
+            st.session_state.chat_cli.conversation_manager.add_message("user", chat_response)
             with st.chat_message("user"):
                 st.markdown(chat_response)
 

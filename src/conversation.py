@@ -1,15 +1,14 @@
 from agno.storage.sqlite import SqliteStorage
 
 from agno_ai_multi_chat_app.src import registry
-import time
 
 class ConversationManager:
     def __init__(self, model_list, db_file, table_name, session_id):
         self.models = []
-        if not session_id:
-            session_id = str(time.time())
 
         storage=SqliteStorage(table_name=table_name, db_file=db_file)
+        self.conversation_history = []
+        self.conversation_horizon = 3
 
         for i, model_config in enumerate(model_list):
             model_class = registry.model_class_registry.get(model_config.model_provider)
@@ -30,6 +29,9 @@ class ConversationManager:
     def num_models(self):
         return len(self.models)
 
+    def add_message(self, role, content):
+        self.conversation_history.append({"role": role, "content": content})
+
     def generate_text_for_indexed_model(self, index, user_input):
         if(index < 0 or index >= len(self.models)):
             raise Exception("Out of range of number of models")
@@ -37,4 +39,5 @@ class ConversationManager:
         if user_input == "":
             user_input = None
 
-        return self.models[index].generate(user_input)
+        generate_result = self.models[index].generate(user_input, self.conversation_history[-self.conversation_horizon:])
+        return generate_result

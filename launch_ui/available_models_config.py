@@ -26,7 +26,8 @@ available_models = {
         "deepseek-ai/DeepSeek-V3": generate_metadata("https://www.together.ai/models/deepseek-v3"),
         "meta-llama/Llama-4-Scout-17B-16E-Instruct": generate_metadata("https://www.together.ai/models/llama-4-scout"),
         "meta-llama/Llama-3.3-70B-Instruct-Turbo": generate_metadata("https://www.together.ai/models/llama-3-3-70b"),
-        "meta-llama/Meta-Llama-3.1-8B-Instruct-Turbo": generate_metadata("https://www.together.ai/models/llama-3-1")
+        "meta-llama/Meta-Llama-3.1-8B-Instruct-Turbo": generate_metadata("https://www.together.ai/models/llama-3-1"),
+        "meta-llama/Llama-3.3-70B-Instruct-Turbo-Free": generate_metadata("https://www.together.ai/models/llama-3-3-70b-free")
     },
     "DeepSeek": {
         "deepseek-chat": generate_metadata("https://api-docs.deepseek.com/quick_start/pricing"),
