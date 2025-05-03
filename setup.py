@@ -16,7 +16,7 @@ setup(
     ],
     entry_points={
         "console_scripts": [
-            "run-multichat-app=agno_ai_multi_chat_app.run:main",
+            "run-multiagent-chat=agno_ai_multi_chat_app.run:main",
         ],
     },
     scripts=["scripts/run.sh"],

@@ -16,7 +16,7 @@ def sanity_checks_on_config():
     for idx, config in enumerate(st.session_state.config_items):
         if not len(config['model_api_key']) > 5:
             return idx
-        if config["web_search"] and config['web_search_api_key'] == '':
+        if config["web_search"] == "Tavily" and config['web_search_api_key'] == '':
             return idx
     
     return -1
@@ -26,8 +26,10 @@ def create_conversation_manager():
 
     for config in st.session_state.config_items:
         tools = dict()
-        if config['web_search']:
+        if config['web_search'] == "Tavily":
             tools["tavily"] = {"api_key": config['web_search_api_key']}
+        elif config['web_search'] == "DuckDuckGo":
+            tools["DuckDuckGo"] = {"fixed_max_results": 3}
         model_config_list.append(
             ModelConfig(
                 model_provider=config['model_provider'],
@@ -133,9 +135,10 @@ with tab2:
                     index=0,
                     key=f"model_id_{idx}"
                 )
-                config["web_search"] = st.checkbox("Enable web search", value=True, key=f"web_search_{idx}")
+                # config["web_search"] = st.checkbox("Enable web search", value=True, key=f"web_search_{idx}")
+                config["web_search"] = st.radio("Web search option:",["DuckDuckGo", "Tavily", "Neither"], index=0, key=f"web_search_{idx}")
                 config["model_api_key"] = st.text_input(f"{config["model_provider"]} API Key", type="password", key=f"model_api_key_{idx}")
-                if config["web_search"]:
+                if config["web_search"] == "Tavily":
                     config["web_search_api_key"] = st.text_input(f"Tavily API Key", type="password", key=f"web_search_api_key_{idx}")
                 st.markdown(f"Selected Model details {available_models[config["model_provider"]][config["model_id"]]["url"]}")
 
