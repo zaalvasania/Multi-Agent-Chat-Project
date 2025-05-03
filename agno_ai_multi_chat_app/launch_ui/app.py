@@ -1,5 +1,4 @@
 import random
-import uuid
 import streamlit as st
 
 from agno_ai_multi_chat_app.src.configs import ModelConfig
@@ -36,28 +35,26 @@ def create_conversation_manager():
                 tools=tools
             )
         )
-    st.session_state.chat_cli = ChatCLI(model_list=model_config_list, db_file="/Users/zvasania/Documents/agno_ai_chat_project/tmp/storage.db")
+    
+    st.session_state.chat_cli = ChatCLI(model_list=model_config_list, db_file="./storage.db")
     st.session_state.emojis = generate_n_animal_emojis(st.session_state.chat_cli.num_models)
     st.session_state.messages = []
     st.session_state.empty_message_sent = False
     st.session_state.config_changed_and_valid = False
     st.toast("Successfully updated model configuration and restarted chat")
 
+def set_defaults():
+    st.session_state.config_changed_and_valid = False
+    st.session_state.config_items = []  # List to store all config items
+    st.session_state.messages = []
+    st.session_state.empty_message_sent = False
+    st.session_state.emojis = None
+    st.session_state.chat_cli = None
+
 st.title("Multi-Model Chat App")
 
-if "config_changed_and_valid" not in st.session_state:
-    st.session_state.config_changed_and_valid = False
-
-# Initialize session state if not already initialized
-if 'config_items' not in st.session_state:
-    st.session_state.config_items = []  # List to store all config items
-
-if "messages" not in st.session_state:
-    st.session_state.messages = []
-
-if "empty_message_sent" not in st.session_state:
-    st.session_state.empty_message_sent = False
-
+if "chat_cli" not in st.session_state:
+    set_defaults()
 
 def add_config_item():
     st.session_state.config_items.append({
@@ -147,7 +144,7 @@ with tab2:
                     delete_config_item(idx)
                     st.rerun()
         
-        confirm = st.button("Confirm all model configs", disabled=(len(st.session_state.config_items) <= 0))
+        confirm = st.button("Confirm and set all model configs", disabled=(len(st.session_state.config_items) <= 0))
         if confirm:
             invalid_idx = sanity_checks_on_config()
             if invalid_idx == -1:
