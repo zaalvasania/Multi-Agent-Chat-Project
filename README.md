@@ -2,7 +2,7 @@
 
 The multi-agent chat app is a python library accessible via a streamlit web ui for enabling LLM's from different providers to interact and converse with each other on a user provided conversation topic. Powered by [agno.ai](https://github.com/agno-agi/agno), each model is able to optionally perform web search via the [Tavily](https://tavily.com/) search API or the [DuckDuckGo](https://duckduckgo.com/) search API and will respond to each other based on their search results and previous conversation context. As of now, various models from [together.ai](https://www.together.ai/), [OpenAI](https://openai.com/), [Anthropic](https://claude.ai/) and [DeepSeek](https://www.deepseek.com/) are supported.
 
-<video src="assets/multi_chat_app_demo.webm" autoplay loop muted width="100%"></video>
+https://github.com/user-attachments/assets/a09be346-5525-4fa1-beba-aea768f13254
 
 ## Installation
 
