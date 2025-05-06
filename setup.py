@@ -8,7 +8,8 @@ requirements = [
     "agno",
     "tavily-python",
     "duckduckgo-search",
-    "streamlit"
+    "streamlit",
+    "mcp"
 ]
 
 setup(
