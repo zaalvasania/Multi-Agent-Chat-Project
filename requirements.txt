@@ -1,8 +1,1 @@
-anthropic
-together
-openai
-sqlalchemy
-agno
-tavily-python
-duckduckgo-search
-streamlit
+git+https://github.com/zaalvasania/Multi-Agent-Chat-Project.git#egg=agno_ai_multi_chat_app
