@@ -220,7 +220,7 @@ def create_main_window():
             generate_and_render_all_responses(chat_response)
 
 
-if "chat_cli" in st.session_state:
+if "chat_cli" in st.session_state and st.session_state.chat_cli:
     create_main_window()
 else:
     st.warning("Model configuration not yet set!", icon="⚠")
